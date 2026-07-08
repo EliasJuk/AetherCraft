@@ -5,18 +5,24 @@
 #include <iostream>
 
 Engine::Engine()
-  : running(false){
+  : running(false) {
 
-  }
+}
 
 bool Engine::initialize() {
   std::cout << "Inicializando Engine...\n";
-  running = true;
 
+  if (!window.initialize()) {
+    return false;
+  }
+
+  running = true;
   return true;
 }
 
 void Engine::shutdown() {
+  window.shutdown();
+
   std::cout << "Finalizando Engine...\n";
 }
 
@@ -27,10 +33,10 @@ void Engine::run(Game& game) {
 
   game.start();
 
-  while (running) {
+  while (running && !window.shouldClose()) {
     game.update();
 
-    stop(); // temporario: depois quem fecha sera a janela/input
+    window.requestClose(); // temporário
   }
 
   shutdown();
