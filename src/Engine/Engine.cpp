@@ -34,9 +34,11 @@ void Engine::run(Game& game) {
   game.start();
 
   while (running && !window.shouldClose()) {
-    game.update();
+    engineTime.update();
 
-    window.requestClose(); // temporário
+    game.update(engineTime.getDeltaTime());
+
+    stop();
   }
 
   shutdown();

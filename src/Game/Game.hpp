@@ -3,5 +3,5 @@
 class Game {
 public:
   void start();
-  void update();
+  void update(float deltaTime);
 };

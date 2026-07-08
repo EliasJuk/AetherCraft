@@ -6,6 +6,6 @@ void Game::start() {
   std::cout << "AetherCraft Game iniciado!\n";
 }
 
-void Game::update() {
-  std::cout << "Game update executado!\n";
+void Game::update(float deltaTime) {
+  std::cout << "Game Update | deltaTime: " << deltaTime << "\n";
 }
