@@ -5,6 +5,7 @@ class Game;
 class Engine {
   public:
     void run(Game& game);
+    void stop();
 
   private:
     bool running = true;
