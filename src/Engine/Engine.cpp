@@ -4,8 +4,26 @@
 
 #include <iostream>
 
+Engine::Engine()
+  : running(false){
+
+  }
+
+bool Engine::initialize() {
+  std::cout << "Inicializando Engine...\n";
+  running = true;
+
+  return true;
+}
+
+void Engine::shutdown() {
+  std::cout << "Finalizando Engine...\n";
+}
+
 void Engine::run(Game& game) {
-  std::cout << "Aether Engine iniciado!\n";
+  if (!initialize()) {
+    return;
+  }
 
   game.start();
 
@@ -15,7 +33,7 @@ void Engine::run(Game& game) {
     stop(); // temporario: depois quem fecha sera a janela/input
   }
 
-  std::cout << "Engine finalizada.\n";
+  shutdown();
 }
 
 void Engine::stop() {
