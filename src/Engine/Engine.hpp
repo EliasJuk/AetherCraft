@@ -1,6 +1,8 @@
 #pragma once
 
+class Game;
+
 class Engine {
 public:
-  void run();
+  void run(Game& game);
 };

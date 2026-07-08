@@ -1,9 +1,11 @@
 #include "Engine/Engine.hpp"
-#include <iostream>
+#include "Game/Game.hpp"
 
 int main() {
   Engine engine;
-  engine.run();
+  Game game;
+
+  engine.run(game);
 
   return 0;
 }
