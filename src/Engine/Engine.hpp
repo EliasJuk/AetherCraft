@@ -2,6 +2,7 @@
 
 #include "Window/Window.hpp"
 #include "Time/Time.hpp"
+#include "Clock/Clock.hpp"
 
 class Game;
 
@@ -20,4 +21,5 @@ class Engine {
     bool running;
     Window window;
     Time engineTime;
+    Clock clock;
 };

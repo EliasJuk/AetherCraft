@@ -5,7 +5,8 @@
 #include <iostream>
 
 Engine::Engine()
-  : running(false) {
+  : running(false),
+    clock(20.0f) {
 
 }
 
@@ -36,9 +37,15 @@ void Engine::run(Game& game) {
   while (running && !window.shouldClose()) {
     engineTime.update();
 
+    clock.update(engineTime.getDeltaTime());
+
+    while (clock.shouldTick()) {
+      game.tick(clock.getTickDeltaTime());
+    }
+    
     game.update(engineTime.getDeltaTime());
 
-    stop();
+    // stop(); // temporário
   }
 
   shutdown();

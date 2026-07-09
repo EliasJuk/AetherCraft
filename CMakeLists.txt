@@ -11,4 +11,5 @@ add_executable(Aether
   src/Game/Game.cpp
   src/Engine/Window/Window.cpp
   src/Engine/Time/Time.cpp
+  src/Engine/Clock/Clock.cpp
 )
