@@ -3,9 +3,19 @@ setlocal
 
 title AetherCraft
 
-REM ============================
-REM           MENU
-REM ============================
+REM ==========================================================
+REM Configuracao do vcpkg
+REM ==========================================================
+
+set "TOOLCHAIN="
+
+if exist "C:\vcpkg\scripts\buildsystems\vcpkg.cmake" (
+    set "TOOLCHAIN=-DCMAKE_TOOLCHAIN_FILE=C:\vcpkg\scripts\buildsystems\vcpkg.cmake"
+)
+
+REM ==========================================================
+REM MENU
+REM ==========================================================
 
 :menu
 cls
@@ -22,7 +32,7 @@ echo [6] Quick Run
 echo [0] Sair
 echo.
 
-set /p option=Escolha uma opcao: 
+set /p option=Escolha uma opcao:
 
 if "%option%"=="1" goto configure
 if "%option%"=="2" goto build
@@ -35,35 +45,35 @@ if "%option%"=="0" exit /b
 goto menu
 
 
-REM ============================
-REM      CONFIGURAR CMAKE
-REM ============================
+REM ==========================================================
+REM CONFIGURAR CMAKE
+REM ==========================================================
 
 :configure
 cls
 
 echo ============================
-echo     CONFIGURAR CMAKE
+echo    CONFIGURAR CMAKE
 echo ============================
 echo.
 
 if not exist build mkdir build
 
-cmake -S . -B build
+cmake -S . -B build %TOOLCHAIN%
 
 pause
 goto menu
 
 
-REM ============================
-REM          COMPILAR
-REM ============================
+REM ==========================================================
+REM COMPILAR
+REM ==========================================================
 
 :build
 cls
 
 echo ============================
-echo         COMPILANDO
+echo       COMPILANDO
 echo ============================
 echo.
 
@@ -73,15 +83,15 @@ pause
 goto menu
 
 
-REM ============================
-REM          EXECUTAR
-REM ============================
+REM ==========================================================
+REM EXECUTAR
+REM ==========================================================
 
 :run
 cls
 
 echo ============================
-echo         EXECUTANDO
+echo       EXECUTANDO
 echo ============================
 echo.
 
@@ -98,15 +108,15 @@ pause
 goto menu
 
 
-REM ============================
-REM     REBUILD COMPLETO
-REM ============================
+REM ==========================================================
+REM REBUILD COMPLETO
+REM ==========================================================
 
 :rebuild
 cls
 
 echo ============================
-echo     REBUILD COMPLETO
+echo    REBUILD COMPLETO
 echo ============================
 echo.
 
@@ -116,22 +126,40 @@ if exist build (
 
 mkdir build
 
-cmake -S . -B build
+cmake -S . -B build %TOOLCHAIN%
+
+if errorlevel 1 (
+    echo.
+    echo Erro ao configurar o projeto.
+    pause
+    goto menu
+)
+
 cmake --build build --config Debug
+
+if errorlevel 1 (
+    echo.
+    echo Erro na compilacao.
+    pause
+    goto menu
+)
+
+echo.
+echo Rebuild concluido com sucesso.
 
 pause
 goto menu
 
 
-REM ============================
-REM       LIMPAR BUILD
-REM ============================
+REM ==========================================================
+REM LIMPAR BUILD
+REM ==========================================================
 
 :clean
 cls
 
 echo ============================
-echo       LIMPAR BUILD
+echo      LIMPAR BUILD
 echo ============================
 echo.
 
@@ -146,15 +174,15 @@ pause
 goto menu
 
 
-REM ============================
-REM         QUICK RUN
-REM ============================
+REM ==========================================================
+REM QUICK RUN
+REM ==========================================================
 
 :quick
 cls
 
 echo ============================
-echo         QUICK RUN
+echo        QUICK RUN
 echo ============================
 echo.
 
@@ -163,7 +191,7 @@ if not exist build (
 )
 
 echo Configurando projeto...
-cmake -S . -B build
+cmake -S . -B build %TOOLCHAIN%
 
 if errorlevel 1 (
     echo.
