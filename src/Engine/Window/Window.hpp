@@ -1,13 +1,18 @@
 #pragma once
 
+#include <GLFW/glfw3.h>
+
 class Window {
-  public:
-    bool initialize();
-    void shutdown();
+public:
+  bool initialize();
+  void shutdown();
 
-    bool shouldClose() const;
-    void requestClose();
+  void pollEvents();
+  void swapBuffers();
 
-  private:
-    bool closeRequested = false;
+  bool shouldClose() const;
+  void requestClose();
+
+private:
+  GLFWwindow* handle = nullptr;
 };

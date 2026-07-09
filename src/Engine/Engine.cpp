@@ -35,17 +35,18 @@ void Engine::run(Game& game) {
   game.start();
 
   while (running && !window.shouldClose()) {
-    engineTime.update();
+    window.pollEvents();
 
+    engineTime.update();
     clock.update(engineTime.getDeltaTime());
 
     while (clock.shouldTick()) {
       game.tick(clock.getTickDeltaTime());
     }
-    
+
     game.update(engineTime.getDeltaTime());
 
-    // stop(); // temporário
+    window.swapBuffers();
   }
 
   shutdown();
